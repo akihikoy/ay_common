@@ -11,9 +11,15 @@ Akihiko Yamaguchi, http://akihikoy.net/
 Usage
 ==================
 
-ay_ros/ay_tool.rosinstall
+ay_ros/ay_tools.rosinstall
 ---------------------------
 Use this file with rosws.
+
+You need to install the `python-rosinstall` package.
+
+```
+$ sudo apt-get -f install python-rosinstall
+```
 
 ## Initialization
 
@@ -21,7 +27,7 @@ Use this file with rosws.
 $ mkdir ~/ros_ws/
 $ cd ~/ros_ws/
 ros_ws$ rosws init
-ros_ws$ rosws merge https://raw.githubusercontent.com/akihikoy/ay_common/master/ay_ros/ay_tool.rosinstall
+ros_ws$ rosws merge https://raw.githubusercontent.com/akihikoy/ay_common/master/ay_ros/ay_tools.rosinstall
 ros_ws$ rosws update
 ```
 
@@ -30,11 +36,11 @@ ros_ws$ rosws update
 ros_ws$ rosws update
 ```
 
-ay_ros/ay_tool_prv.rosinstall
+ay_ros/ay_tools_prv.rosinstall
 --------------------------------------------
 You must have a permission to access the private repositories on GitHub.
 
-Usage: Replace `ay_tool.rosinstall` by `ay_tool_prv.rosinstall`.
+Usage: Replace `ay_tools.rosinstall` by `ay_tools_prv.rosinstall`.
 
 
 Troubles
