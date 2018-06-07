@@ -36,7 +36,7 @@
 
 # Private ay_tools:
 - git:
-    local-name: ay_tools/ay_skill_extra/ay_skill2
+    local-name: ay_tools/ay_skill_extra/s2
     uri: https://github.com/akihikoy/ay_skill2.git
     version: master
 - git:

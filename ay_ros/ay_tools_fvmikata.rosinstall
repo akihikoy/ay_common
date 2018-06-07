@@ -2,10 +2,6 @@
 
 # Public ay_tools:
 - git:
-    local-name: ay_tools/ay_common
-    uri: https://github.com/akihikoy/ay_common.git
-    version: master
-- git:
     local-name: ay_tools/ay_cpp
     uri: https://github.com/akihikoy/ay_cpp.git
     version: master
