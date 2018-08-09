@@ -18,6 +18,16 @@
     uri: https://github.com/akihikoy/ay_util.git
     version: master
 - git:
-    local-name: ay_tools/ay_vision
-    uri: https://github.com/akihikoy/ay_vision.git
+    local-name: ay_tools/fingervision
+    uri: https://github.com/akihikoy/fingervision.git
     version: master
+- git:
+    local-name: ay_tools/ay_fv_extra
+    uri: https://github.com/akihikoy/ay_fv_extra.git
+    version: master
+
+# Optional:
+# - git:
+#     local-name: ay_tools/ay_vision
+#     uri: https://github.com/akihikoy/ay_vision.git
+#     version: master
