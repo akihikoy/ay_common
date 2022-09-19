@@ -1,0 +1,17 @@
+# Public ay_tools:
+- git:
+    local-name: ay_tools/ay_py
+    uri: https://github.com/akihikoy/ay_py.git
+    version: master
+- git:
+    local-name: ay_tools/ay_util
+    uri: https://github.com/akihikoy/ay_util.git
+    version: master
+- git:
+    local-name: ay_tools/fingervision
+    uri: https://github.com/akihikoy/fingervision.git
+    version: master
+- git:
+    local-name: ay_tools/ay_fv_extra
+    uri: https://github.com/akihikoy/ay_fv_extra.git
+    version: master
