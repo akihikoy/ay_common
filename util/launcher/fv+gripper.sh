@@ -16,4 +16,5 @@ export ROS_MASTER_URI=http://localhost:11311
 export ROS_IP=127.0.0.1
 export ROS_PACKAGE_PATH=${ROS_PACKAGE_PATH}:$HOME/ros_ws:${HOME}/prg/ay_test/ros
 
-rosrun fv_gripper_ctrl ctrl_panel.py -dxl_dev=USB0
+#NOTE: -gripper_type=RHP12RNAGripper is necessary for a newer gripper protocol.
+rosrun fv_gripper_ctrl ctrl_panel.py -gripper_type=RHP12RNGripper -dxl_dev=USB0
