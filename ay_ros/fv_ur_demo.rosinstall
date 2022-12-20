@@ -16,6 +16,10 @@
     uri: https://github.com/akihikoy/ay_fv_extra.git
     version: master
 - git:
+    local-name: ay_tools/ay_common
+    uri: https://github.com/akihikoy/ay_common.git
+    version: master
+- git:
     local-name: ay_tools/ay_trick
     uri: https://github.com/akihikoy/ay_trick.git
     version: master

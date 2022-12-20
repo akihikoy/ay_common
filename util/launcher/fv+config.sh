@@ -1,0 +1,7 @@
+#ROS Configuration
+#ROS_DISTR=kinetic
+ROS_DISTR=melodic
+
+GRIPPER_TYPE=RHP12RNGripper
+ROBOT_CODE=UR3e125hzThG
+DXL_DEV=USB0
