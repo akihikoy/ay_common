@@ -1,6 +1,6 @@
 #!/bin/bash
-#\file    fv+ur-demo.sh
-#\brief   FV+UR-demo launcher script.
+#\file    fv+gripper.sh
+#\brief   FV+Gripper launcher script.
 #\author  Akihiko Yamaguchi, info@akihikoy.net
 #\version 0.1
 #\date    Oct.03, 2022
