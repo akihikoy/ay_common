@@ -31,4 +31,4 @@ echo "ROS_MASTER_URI=$ROS_MASTER_URI"
 echo "ROS_IP=$ROS_IP"
 echo "ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH"
 
-rosrun fv_gripper_ctrl ctrl_panel.py -gripper_type=${GRIPPER_TYPE} -dxl_dev=${DXL_DEV}
+rosrun fv_gripper_ctrl ctrl_panel.py -gripper_type=${GRIPPER_TYPE} -dxl_dev=${DXL_DEV} $@
