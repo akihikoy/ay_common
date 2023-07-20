@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 #\file    fv+gripper-setup.sh
 #\brief   Script to setup a Linux PC (Ubuntu 18.04) for FV+GripperKit.
 #\author  Akihiko Yamaguchi, info@akihikoy.net
@@ -111,6 +111,7 @@ if ask; then
   mkdir -p ~/ros_ws/ && cd ~/ros_ws/
   # FV+Gripper Kit:
   rosws merge https://raw.githubusercontent.com/akihikoy/ay_common/master/ay_ros/fv_gripper_kit.rosinstall
+  rosws update
 
   rosmake ay_util fingervision
 
@@ -137,7 +138,7 @@ fi
 
 # BG image
 cd ~/Downloads
-wget https://akihikoy.net/p/FVIncLogo/logo_blue.png
+wget http://akihikoy.net/p/FVIncLogo/logo_blue.png
 
 
 # Configuration:
@@ -146,10 +147,16 @@ echo '
 
 Add the above line to sudoers.
 '
-sudo visudo
+echo 'Run visudo?'
+if ask; then
+  sudo visudo
+fi
 
-echo 'Edit ~/fv+config.sh'
-nano ~/fv+config.sh
+echo 'Edit ~/fv+config.sh?'
+if ask; then
+  nano ~/fv+config.sh
+fi
+
 
 v4l2-ctl --list-devices
 echo 'Make symbolic links in /media/ pointing to those cameras.
