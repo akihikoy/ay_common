@@ -65,7 +65,7 @@ if ask; then
   sudo apt -y install python3-yaml python3-pip
   python3 -m pip install rospkg catkin_pkg
 
-  . /opt/ros/melodic/setup.bash
+  source /opt/ros/melodic/setup.bash
   sudo rosdep init
   rosdep update
 fi
@@ -85,11 +85,12 @@ export ROS_IP=127.0.0.1
 export ROS_PACKAGE_PATH=\${ROS_PACKAGE_PATH}:\$HOME/ros_ws:\${HOME}/prg/ay_test/ros
 " >> ~/.bashrc
 
-  . .bashrc
+  source ~/.bashrc
 fi
 
 echo 'Setup workspace?'
 if ask; then
+  source ~/.bashrc
   mkdir -p ~/ros_ws/ && cd ~/ros_ws/
   rosws init
   mkdir -p ~/catkin_ws/src && cd ~/catkin_ws/
@@ -125,6 +126,8 @@ echo 'Install AY-Tools & FingerVision?'
 if ask; then
   sudo apt -y -f install libboost-all-dev libboost-dev  python-setuptools python python-numpy python-scipy python-sklearn python-statsmodels python-pandas python-yaml  python-matplotlib python-tk  uvcdynctrl  python-rosinstall
   sudo apt -y -f install python-qt4 tmux rxvt-unicode-256color
+
+  source ~/.bashrc
 
   mkdir -p ~/ros_ws/ && cd ~/ros_ws/
   # FV+Gripper Kit:
