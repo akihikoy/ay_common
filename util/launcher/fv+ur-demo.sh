@@ -31,4 +31,4 @@ echo "ROS_MASTER_URI=$ROS_MASTER_URI"
 echo "ROS_IP=$ROS_IP"
 echo "ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH"
 
-rosrun ay_util ur_panel.py -robot_code=${ROBOT_CODE} -dxl_dev=${DXL_DEV} $@
+rosrun ay_util ur_panel.py -robot_code=${ROBOT_CODE} -dxl_dev=${DXL_DEV} ${FVUR_OPTS} $@

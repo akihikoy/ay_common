@@ -18,13 +18,13 @@ function ask
 echo 'Install Ubuntu core packages?'
 if ask; then
   # [Light desktop]
-  sudo apt -f install xfce4 lightdm
+  sudo apt -y -f install xfce4 lightdm
 
   # [Useful packages]
-  sudo apt -f install ibus ibus-mozc ibus-qt4 mozc-utils-gui
-  sudo apt -f install openssh-server tcsh lv git tig htop dstat pcregrep nkf w3m xclip units g++ make cmake cmake-curses-gui automake libtool pkg-config gcc-doc glibc-doc kwrite kate konsole ffmpegthumbs kdegraphics-thumbnailers ark yakuake kdiff3 kompare nmap curl net-tools
-  sudo apt -f install gnuplot
-  sudo apt -f install aptitude apt-file
+  sudo apt -y -f install ibus ibus-mozc ibus-qt4 mozc-utils-gui
+  sudo apt -y -f install openssh-server tcsh lv git tig htop dstat pcregrep nkf w3m xclip units g++ make cmake cmake-curses-gui automake libtool pkg-config gcc-doc glibc-doc kwrite kate konsole ffmpegthumbs kdegraphics-thumbnailers ark yakuake kdiff3 kompare nmap curl net-tools
+  sudo apt -y -f install gnuplot
+  sudo apt -y -f install aptitude apt-file
 
   # [Stop baloo (file indexing used by dolphin)]
   sudo apt remove baloo-kf5
@@ -40,14 +40,14 @@ if ask; then
   sudo apt update
   sudo apt install ros-melodic-desktop-full
 
-  sudo apt -f install ros-melodic-moveit-commander ros-melodic-moveit-planners ros-melodic-moveit-plugins ros-melodic-moveit-ros ros-melodic-moveit-resources ros-melodic-cmake-modules ros-melodic-usb-cam  ros-melodic-rviz-visual-tools ros-melodic-code-coverage ros-melodic-joy ros-melodic-urdfdom-py ros-melodic-kdl-parser-py ros-melodic-code-coverage
+  sudo apt -y -f install ros-melodic-moveit-commander ros-melodic-moveit-planners ros-melodic-moveit-plugins ros-melodic-moveit-ros ros-melodic-moveit-resources ros-melodic-cmake-modules ros-melodic-usb-cam  ros-melodic-rviz-visual-tools ros-melodic-code-coverage ros-melodic-joy ros-melodic-urdfdom-py ros-melodic-kdl-parser-py ros-melodic-code-coverage
 
-  sudo apt-get -f install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential
+  sudo apt -y -f install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential
 
-  sudo apt-get -f install python-pip
+  sudo apt -y -f install python-pip
   python -m pip install pybind11
 
-  sudo apt-get install python3-yaml python3-pip
+  sudo apt -y install python3-yaml python3-pip
   python3 -m pip install rospkg catkin_pkg
 
   . /opt/ros/melodic/setup.bash
@@ -94,7 +94,7 @@ fi
 
 echo 'Install OpenCV?'
 if ask; then
-  sudo apt-get -f install libopencv-calib3d-dev libopencv-calib3d3.2 libopencv-contrib-dev libopencv-contrib3.2 libopencv-core-dev libopencv-core3.2 libopencv-dev libopencv-features2d-dev libopencv-features2d3.2 libopencv-flann-dev libopencv-flann3.2 libopencv-highgui-dev libopencv-highgui3.2 libopencv-imgcodecs-dev libopencv-imgcodecs3.2 libopencv-imgproc-dev libopencv-imgproc3.2 libopencv-ml-dev libopencv-ml3.2 libopencv-objdetect-dev libopencv-objdetect3.2 libopencv-photo-dev libopencv-photo3.2 libopencv-shape-dev libopencv-shape3.2 libopencv-stitching-dev libopencv-stitching3.2 libopencv-superres-dev libopencv-superres3.2 libopencv-ts-dev libopencv-video-dev libopencv-video3.2 libopencv-videoio-dev libopencv-videoio3.2 libopencv-videostab-dev libopencv-videostab3.2 libopencv-viz-dev libopencv-viz3.2 opencv-data opencv-doc python3-opencv
+  sudo apt -y -f install libopencv-calib3d-dev libopencv-calib3d3.2 libopencv-contrib-dev libopencv-contrib3.2 libopencv-core-dev libopencv-core3.2 libopencv-dev libopencv-features2d-dev libopencv-features2d3.2 libopencv-flann-dev libopencv-flann3.2 libopencv-highgui-dev libopencv-highgui3.2 libopencv-imgcodecs-dev libopencv-imgcodecs3.2 libopencv-imgproc-dev libopencv-imgproc3.2 libopencv-ml-dev libopencv-ml3.2 libopencv-objdetect-dev libopencv-objdetect3.2 libopencv-photo-dev libopencv-photo3.2 libopencv-shape-dev libopencv-shape3.2 libopencv-stitching-dev libopencv-stitching3.2 libopencv-superres-dev libopencv-superres3.2 libopencv-ts-dev libopencv-video-dev libopencv-video3.2 libopencv-videoio-dev libopencv-videoio3.2 libopencv-videostab-dev libopencv-videostab3.2 libopencv-viz-dev libopencv-viz3.2 opencv-data opencv-doc python3-opencv
 fi
 
 
@@ -113,21 +113,23 @@ if ask; then
   rosws merge https://raw.githubusercontent.com/akihikoy/ay_common/master/ay_ros/fv_gripper_kit.rosinstall
   rosws update
 
-  rosmake ay_util fingervision
+  rosmake ay_util_msgs
+  rosmake ay_util
+  rosmake fingervision
 
   # Setup FV+ demo kit
-  sudo ln -s `rospack find ay_util`/scripts/fix_usb_latency.sh /sbin/
+  sudo ln -is `rospack find ay_util`/scripts/fix_usb_latency.sh /sbin/
 
   # FV+Gripper Kit
   cd ~
-  ln -s ros_ws/ay_tools/ay_common/util/launcher/fv+gripper.sh .
+  ln -is ros_ws/ay_tools/ay_common/util/launcher/fv+gripper.sh .
 
   # Common config:
   cd ~
   cp ros_ws/ay_tools/ay_common/util/launcher/fv+config.sh .
 
   # For FV simulation:
-  sudo ln -s /home/$USER/ros_ws/ay_tools/fingervision/data /media/fvdata
+  sudo ln -is /home/$USER/ros_ws/ay_tools/fingervision/data /media/fvdata
 
   mkdir -p ~/data/data_gen/ ~/data/config/
   cp -a `rospack find ay_fv_extra`/config/fvp_5_l.yaml ~/data/config/fvp300x_l.yaml
@@ -137,8 +139,7 @@ if ask; then
 fi
 
 # BG image
-cd ~/Downloads
-wget http://akihikoy.net/p/FVIncLogo/logo_blue.png
+wget http://akihikoy.net/p/FVIncLogo/logo_blue.png -O ~/Downloads/logo_blue.png
 
 
 # Configuration:
