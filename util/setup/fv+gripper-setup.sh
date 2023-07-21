@@ -148,7 +148,9 @@ if ask; then
   cp ros_ws/ay_tools/ay_common/util/launcher/fv+config.sh .
 
   # For FV simulation:
-  sudo ln -is /home/$USER/ros_ws/ay_tools/fingervision/data /media/fvdata
+  if [ ! -f /media/fvdata ];then
+    sudo ln -is /home/$USER/ros_ws/ay_tools/fingervision/data /media/fvdata
+  fi
 
   mkdir -p ~/data/data_gen/ ~/data/config/
   cp -a `rospack find ay_fv_extra`/config/fvp_5_l.yaml ~/data/config/fvp300x_l.yaml
