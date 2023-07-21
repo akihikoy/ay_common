@@ -20,7 +20,5 @@ rosws update
 
 echo 'Re-compile?'
 if ask; then
-  rosmake ay_util_msgs
-  rosmake ay_util
-  rosmake fingervision
+  rosmake ay_util_msgs ay_util fingervision
 fi
