@@ -53,7 +53,7 @@ if ask; then
   curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
 
   sudo apt update
-  sudo apt install ros-melodic-desktop-full
+  sudo apt -y -f install ros-melodic-desktop-full
 
   sudo apt -y -f install ros-melodic-moveit-commander ros-melodic-moveit-planners ros-melodic-moveit-plugins ros-melodic-moveit-ros ros-melodic-moveit-resources ros-melodic-cmake-modules ros-melodic-usb-cam  ros-melodic-rviz-visual-tools ros-melodic-code-coverage ros-melodic-joy ros-melodic-urdfdom-py ros-melodic-kdl-parser-py ros-melodic-code-coverage
 
