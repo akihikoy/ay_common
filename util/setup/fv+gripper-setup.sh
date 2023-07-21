@@ -120,12 +120,10 @@ if ask; then
   # Setup FV+ demo kit
   sudo ln -is `rospack find ay_util`/scripts/fix_usb_latency.sh /sbin/
 
-  # FV+Gripper Kit
+  # Create links to utility scripts
   cd ~
   ln -is ros_ws/ay_tools/ay_common/util/launcher/fv+gripper.sh .
-
-  # Common config:
-  cd ~
+  ln -is ros_ws/ay_tools/ay_common/util/misc/fv+update.sh .
   cp ros_ws/ay_tools/ay_common/util/launcher/fv+config.sh .
 
   # For FV simulation:
