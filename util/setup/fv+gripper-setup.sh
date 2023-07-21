@@ -108,6 +108,9 @@ fi
 
 echo 'Install AY-Tools & FingerVision?'
 if ask; then
+  sudo apt -y -f install libboost-all-dev libboost-dev  python-setuptools python python-numpy python-scipy python-sklearn python-statsmodels python-pandas python-yaml  python-matplotlib python-tk  uvcdynctrl  python-rosinstall
+  sudo apt -y -f install python-qt4 tmux rxvt-unicode-256color
+
   mkdir -p ~/ros_ws/ && cd ~/ros_ws/
   # FV+Gripper Kit:
   rosws merge https://raw.githubusercontent.com/akihikoy/ay_common/master/ay_ros/fv_gripper_kit.rosinstall
