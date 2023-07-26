@@ -5,6 +5,20 @@
 #\version 0.1
 #\date    Jul.21, 2023
 
+ros_bash_config="
+###AUTOMATICALLY_ADDED_BY_THE_FV_SCRIPT###
+#ROS Configuration
+#ROS_DISTR=kinetic
+ROS_DISTR=melodic
+. /opt/ros/\$ROS_DISTR/setup.bash
+. ~/catkin_ws/devel/setup.bash
+. /opt/ros/\$ROS_DISTR/share/rosbash/rosbash
+
+export ROS_MASTER_URI=http://localhost:11311
+export ROS_IP=127.0.0.1
+export ROS_PACKAGE_PATH=\${ROS_PACKAGE_PATH}:\$HOME/ros_ws:\${HOME}/prg/ay_test/ros
+"
+
 answer_yes_admin='n'
 answer_yes_user='n'
 function print_usage
@@ -90,25 +104,14 @@ fi
 
 echo '[user] Configure .bashrc?'
 if ask_user; then
-  echo "
-#ROS Configuration
-#ROS_DISTR=kinetic
-ROS_DISTR=melodic
-. /opt/ros/\$ROS_DISTR/setup.bash
-. ~/catkin_ws/devel/setup.bash
-. /opt/ros/\$ROS_DISTR/share/rosbash/rosbash
+  echo "$ros_bash_config" >> ~/.bashrc
 
-export ROS_MASTER_URI=http://localhost:11311
-export ROS_IP=127.0.0.1
-export ROS_PACKAGE_PATH=\${ROS_PACKAGE_PATH}:\$HOME/ros_ws:\${HOME}/prg/ay_test/ros
-" >> ~/.bashrc
-
-  source ~/.bashrc
+  eval "$ros_bash_config"
 fi
 
 echo '[user] Setup workspace?'
 if ask_user; then
-  source ~/.bashrc
+  eval "$ros_bash_config"
   mkdir -p ~/ros_ws/ && cd ~/ros_ws/
   rosws init
   mkdir -p ~/catkin_ws/src && cd ~/catkin_ws/
@@ -152,7 +155,7 @@ fi
 
 echo '[user] Install AY-Tools & FingerVision?'
 if ask_user; then
-  source ~/.bashrc
+  eval "$ros_bash_config"
 
   mkdir -p ~/ros_ws/ && cd ~/ros_ws/
   # FV+Gripper Kit:
