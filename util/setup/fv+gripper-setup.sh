@@ -184,6 +184,8 @@ fi
 
 echo '[admin] Configure the system for AY-Tools & FingerVision?'
 if ask_admin; then
+  eval "$ros_bash_config"
+
   # Setup FV+ demo kit
   sudo ln -is `rospack find ay_util`/scripts/fix_usb_latency.sh /sbin/
 
