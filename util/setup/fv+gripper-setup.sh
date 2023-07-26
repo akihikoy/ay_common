@@ -5,15 +5,18 @@
 #\version 0.1
 #\date    Jul.21, 2023
 
-answer_yes='n'
+answer_yes_admin='n'
+answer_yes_user='n'
 function print_usage
 {
   echo "Usage: $0 [-y]"
-  echo "  -y Answer yes to all queries."
+  echo "  -y Answer yes to all queries about the system (admin) setup."
+  echo "  -u Answer yes to all queries about the per-user setup."
 }
-while getopts 'y' flag; do
+while getopts 'uy' flag; do
   case "${flag}" in
-    y) answer_yes='y' ;;
+    y) answer_yes_admin='y' ;;
+    u) answer_yes_user='y' ;;
     *) print_usage
        exit 1 ;;
   esac
@@ -21,7 +24,6 @@ done
 
 function ask
 {
-  if [ "${answer_yes}" == "y" ]; then return 0; fi
   while true; do
     echo -n '  (y|n) > '
     read s
@@ -29,9 +31,19 @@ function ask
     if [ "$s" == "n" ];then return 1; fi
   done
 }
+function ask_admin
+{
+  if [ "${answer_yes_admin}" == "y" ]; then return 0; fi
+  if ask; then return 0; else return 1; fi
+}
+function ask_user
+{
+  if [ "${answer_yes_user}" == "y" ]; then return 0; fi
+  if ask; then return 0; else return 1; fi
+}
 
-echo 'Install Ubuntu core packages?'
-if ask; then
+echo '[admin] Install Ubuntu core packages?'
+if ask_admin; then
   # [Light desktop]
   sudo apt -y -f install xfce4 lightdm
 
@@ -46,8 +58,8 @@ if ask; then
 fi
 
 
-echo 'Install ROS?'
-if ask; then
+echo '[admin] Install ROS?'
+if ask_admin; then
   sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 
   curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
@@ -60,18 +72,24 @@ if ask; then
   sudo apt -y -f install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential
 
   sudo apt -y -f install python-pip
-  python -m pip install pybind11
 
   sudo apt -y install python3-yaml python3-pip
-  python3 -m pip install rospkg catkin_pkg
 
   source /opt/ros/melodic/setup.bash
   sudo rosdep init
   rosdep update
 fi
 
-echo 'Configure .bashrc?'
-if ask; then
+echo '[user] Install ROS?'
+if ask_user; then
+  source /opt/ros/melodic/setup.bash
+  python -m pip install pybind11
+  python3 -m pip install rospkg catkin_pkg
+  rosdep update
+fi
+
+echo '[user] Configure .bashrc?'
+if ask_user; then
   echo "
 #ROS Configuration
 #ROS_DISTR=kinetic
@@ -88,8 +106,8 @@ export ROS_PACKAGE_PATH=\${ROS_PACKAGE_PATH}:\$HOME/ros_ws:\${HOME}/prg/ay_test/
   source ~/.bashrc
 fi
 
-echo 'Setup workspace?'
-if ask; then
+echo '[user] Setup workspace?'
+if ask_user; then
   source ~/.bashrc
   mkdir -p ~/ros_ws/ && cd ~/ros_ws/
   rosws init
@@ -98,35 +116,42 @@ if ask; then
 fi
 
 
-echo 'Install Dynamixel SDK?'
-if ask; then
+echo '[admin] Setup for Dynamixel SDK?'
+if ask_admin; then
   sudo usermod -a -G dialout $USER
+fi
 
+echo '[user] Install Dynamixel SDK?'
+if ask_user; then
   mkdir -p ~/prg && cd ~/prg/
   git clone https://github.com/ROBOTIS-GIT/DynamixelSDK.git
   cd DynamixelSDK/python/
   python setup.py install --user
 fi
 
-echo 'Install OpenCV?'
-if ask; then
+echo '[admin] Install OpenCV?'
+if ask_admin; then
   sudo apt -y -f install libopencv-calib3d-dev libopencv-calib3d3.2 libopencv-contrib-dev libopencv-contrib3.2 libopencv-core-dev libopencv-core3.2 libopencv-dev libopencv-features2d-dev libopencv-features2d3.2 libopencv-flann-dev libopencv-flann3.2 libopencv-highgui-dev libopencv-highgui3.2 libopencv-imgcodecs-dev libopencv-imgcodecs3.2 libopencv-imgproc-dev libopencv-imgproc3.2 libopencv-ml-dev libopencv-ml3.2 libopencv-objdetect-dev libopencv-objdetect3.2 libopencv-photo-dev libopencv-photo3.2 libopencv-shape-dev libopencv-shape3.2 libopencv-stitching-dev libopencv-stitching3.2 libopencv-superres-dev libopencv-superres3.2 libopencv-ts-dev libopencv-video-dev libopencv-video3.2 libopencv-videoio-dev libopencv-videoio3.2 libopencv-videostab-dev libopencv-videostab3.2 libopencv-viz-dev libopencv-viz3.2 opencv-data opencv-doc python3-opencv
 fi
 
 
-echo 'Install MJPG-Streamer?'
-if ask; then
+echo '[user] Install MJPG-Streamer?'
+if ask_user; then
   mkdir -p ~/prg/ && cd ~/prg/
   git clone https://github.com/akihikoy/mjpg-streamer.git mjpg-streamer2
   cd mjpg-streamer2/mjpg-streamer-experimental/
   make
 fi
 
-echo 'Install AY-Tools & FingerVision?'
-if ask; then
+
+echo '[admin] Install libraries for AY-Tools & FingerVision?'
+if ask_admin; then
   sudo apt -y -f install libboost-all-dev libboost-dev  python-setuptools python python-numpy python-scipy python-sklearn python-statsmodels python-pandas python-yaml  python-matplotlib python-tk  uvcdynctrl  python-rosinstall
   sudo apt -y -f install python-qt4 tmux rxvt-unicode-256color
+fi
 
+echo '[user] Install AY-Tools & FingerVision?'
+if ask_user; then
   source ~/.bashrc
 
   mkdir -p ~/ros_ws/ && cd ~/ros_ws/
@@ -138,36 +163,39 @@ if ask; then
   rosmake ay_util
   rosmake fingervision
 
-  # Setup FV+ demo kit
-  sudo ln -is `rospack find ay_util`/scripts/fix_usb_latency.sh /sbin/
-
   # Create links to utility scripts
   cd ~
   ln -is ros_ws/ay_tools/ay_common/util/launcher/fv+gripper.sh .
   ln -is ros_ws/ay_tools/ay_common/util/misc/fv+update.sh .
   cp ros_ws/ay_tools/ay_common/util/launcher/fv+config.sh .
 
-  # For FV simulation:
-  if [ ! -f /media/fvdata ];then
-    sudo ln -is /home/$USER/ros_ws/ay_tools/fingervision/data /media/fvdata
-  fi
-
   mkdir -p ~/data/data_gen/ ~/data/config/
   cp -a `rospack find ay_fv_extra`/config/fvp_5_l.yaml ~/data/config/fvp300x_l.yaml
   cp -a `rospack find ay_fv_extra`/config/fvp_5_r.yaml ~/data/config/fvp300x_r.yaml
   mkdir -p ~/.rviz/
   cp -a `rospack find fv_gripper_ctrl`/config/default.rviz ~/.rviz/
+
+  # BG image
+  wget http://akihikoy.net/p/FVIncLogo/logo_blue.png -O ~/Downloads/logo_blue.png
 fi
 
-# BG image
-wget http://akihikoy.net/p/FVIncLogo/logo_blue.png -O ~/Downloads/logo_blue.png
+echo '[admin] Configure the system for AY-Tools & FingerVision?'
+if ask_admin; then
+  # Setup FV+ demo kit
+  sudo ln -is `rospack find ay_util`/scripts/fix_usb_latency.sh /sbin/
+
+  # For FV simulation:
+  if [ ! -f /media/fvdata ];then
+    sudo ln -is /home/$USER/ros_ws/ay_tools/fingervision/data /media/fvdata
+  fi
+fi
 
 
 # Configuration:
 echo '
 %dialout ALL=PASSWD: ALL, NOPASSWD: /sbin/fix_usb_latency.sh
 
-Add the above line to sudoers.
+Instruction: Add the above line to sudoers.
 '
 echo 'Run visudo?'
 if ask; then
@@ -181,7 +209,7 @@ fi
 
 
 v4l2-ctl --list-devices
-echo 'Make symbolic links in /media/ pointing to those cameras.
+echo 'Instruction: Make symbolic links in /media/ pointing to those cameras.
 e.g.
 sudo ln -is /dev/v4l/by-path/pci-0000\:00\:14.0-usb-0\:7.1\:1.0-video-index0 /media/video_fv1
 sudo ln -is /dev/v4l/by-path/pci-0000\:00\:14.0-usb-0\:1.1\:1.0-video-index0 /media/video_fv2
