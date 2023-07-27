@@ -1,6 +1,6 @@
 #!/bin/bash -x
 #\file    fv+gripper-setup.sh
-#\brief   Script to setup a Linux PC (Ubuntu 18.04) for FV+GripperKit.
+#\brief   Script to setup a Linux PC for FV+GripperKit.
 #\author  Akihiko Yamaguchi, info@akihikoy.net
 #\version 0.1
 #\date    Jul.21, 2023
@@ -16,6 +16,8 @@ ROS_DISTR=melodic
 
 export ROS_MASTER_URI=http://localhost:11311
 export ROS_IP=127.0.0.1
+#export ROS_MASTER_URI=http://10.10.6.203:11311
+#export ROS_IP=10.10.6.203
 export ROS_PACKAGE_PATH=\${ROS_PACKAGE_PATH}:\$HOME/ros_ws:\${HOME}/prg/ay_test/ros
 "
 
@@ -170,13 +172,13 @@ if ask_user; then
   cd ~
   ln -is ros_ws/ay_tools/ay_common/util/launcher/fv+gripper.sh .
   ln -is ros_ws/ay_tools/ay_common/util/misc/fv+update.sh .
-  cp ros_ws/ay_tools/ay_common/util/launcher/fv+config.sh .
+  cp -ia ros_ws/ay_tools/ay_common/util/launcher/fv+config.sh .
 
   mkdir -p ~/data/data_gen/ ~/data/config/
-  cp -a `rospack find ay_fv_extra`/config/fvp_5_l.yaml ~/data/config/fvp300x_l.yaml
-  cp -a `rospack find ay_fv_extra`/config/fvp_5_r.yaml ~/data/config/fvp300x_r.yaml
+  cp -ia `rospack find ay_fv_extra`/config/fvp_5_l.yaml ~/data/config/fvp300x_l.yaml
+  cp -ia `rospack find ay_fv_extra`/config/fvp_5_r.yaml ~/data/config/fvp300x_r.yaml
   mkdir -p ~/.rviz/
-  cp -a `rospack find fv_gripper_ctrl`/config/default.rviz ~/.rviz/
+  cp -ia `rospack find fv_gripper_ctrl`/config/default.rviz ~/.rviz/
 
   # BG image
   wget http://akihikoy.net/p/FVIncLogo/logo_blue.png -O ~/Downloads/logo_blue.png
@@ -198,25 +200,34 @@ fi
 
 # Configuration:
 echo '
-%dialout ALL=PASSWD: ALL, NOPASSWD: /sbin/fix_usb_latency.sh
+===================================
 
-Instruction: Add the above line to sudoers.
+Instruction: Add the following line to sudoers.
+
+%dialout ALL = NOPASSWD: /sbin/fix_usb_latency.sh
+
 '
-echo 'Run visudo?'
+echo '[admin] Run visudo?'
 if ask; then
   sudo visudo
 fi
 
-echo 'Edit ~/fv+config.sh?'
+echo '[user] Edit ~/fv+config.sh?'
 if ask; then
   nano ~/fv+config.sh
 fi
 
 
-v4l2-ctl --list-devices
-echo 'Instruction: Make symbolic links in /media/ pointing to those cameras.
+echo '
+===================================
+
+Instruction: Make symbolic links in /media/ pointing to the cameras.
 e.g.
-sudo ln -is /dev/v4l/by-path/pci-0000\:00\:14.0-usb-0\:7.1\:1.0-video-index0 /media/video_fv1
-sudo ln -is /dev/v4l/by-path/pci-0000\:00\:14.0-usb-0\:1.1\:1.0-video-index0 /media/video_fv2
+$ sudo ln -is /dev/v4l/by-path/pci-0000\:00\:14.0-usb-0\:7.1\:1.0-video-index0 /media/video_fv1
+$ sudo ln -is /dev/v4l/by-path/pci-0000\:00\:14.0-usb-0\:1.1\:1.0-video-index0 /media/video_fv2
+
+The camera ID can be listed by:
+$ v4l2-ctl --list-devices
 '
+v4l2-ctl --list-devices
 
