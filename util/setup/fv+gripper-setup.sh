@@ -61,7 +61,7 @@ function ask_user
 echo '[admin] Install Ubuntu core packages?'
 if ask_admin; then
   # [Light desktop]
-  sudo apt -y -f install xfce4 lightdm
+  sudo apt -y -f install xfce4 lightdm xfce4-power-manager xfce4-power-manager-plugins xfce4-goodies
 
   # [Useful packages]
   sudo apt -y -f install ibus ibus-mozc ibus-qt4 mozc-utils-gui
