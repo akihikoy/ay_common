@@ -65,7 +65,7 @@ if ask_admin; then
 
   # [Useful packages]
   sudo apt -y -f install ibus ibus-mozc ibus-qt4 mozc-utils-gui
-  sudo apt -y -f install openssh-server tcsh lv git tig htop dstat pcregrep nkf w3m xclip units g++ make cmake cmake-curses-gui automake libtool pkg-config gcc-doc glibc-doc kwrite kate konsole ffmpegthumbs kdegraphics-thumbnailers ark yakuake kdiff3 kompare nmap curl net-tools
+  sudo apt -y -f install openssh-server tcsh lv git tig htop dstat pcregrep nkf w3m xclip units g++ make cmake cmake-curses-gui automake libtool pkg-config gcc-doc glibc-doc kwrite kate konsole ffmpegthumbs kdegraphics-thumbnailers ark yakuake kdiff3 kompare nmap curl net-tools wmctrl
   sudo apt -y -f install gnuplot
   sudo apt -y -f install aptitude apt-file
 
