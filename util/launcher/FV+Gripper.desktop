@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=FV+Gripper
+Comment=
+Exec=/home/fv/fv+gripper.sh
+Icon=
+Path=
+Terminal=true
+StartupNotify=false
