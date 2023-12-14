@@ -1,0 +1,9 @@
+--- gcc_output_parse.py.old	2020-04-21 06:18:01.000000000 +0900
++++ gcc_output_parse.py.new	2022-04-20 01:22:12.052935086 +0900
+@@ -38,4 +38,5 @@
+         @return A dictionary of lists of warning messages indexed by the warning type
+         @rtype {str:[str]}
+         """
+-        return {(t, self.byType(t)) for t, p in self._warning_pattern_map.items()}
++        #return {(t, self.byType(t)) for t, p in self._warning_pattern_map.items()}
++        return dict((t, self.byType(t)) for t, p in self._warning_pattern_map.items())
