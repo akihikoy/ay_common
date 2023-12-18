@@ -155,6 +155,15 @@ if ask_admin; then
   sudo apt -y -f install python-qt4 tmux rxvt-unicode-256color
 fi
 
+echo '[admin] Apply patches to fix the issues in building the packages?'
+if ask_admin; then
+  cd /tmp
+  wget https://raw.githubusercontent.com/akihikoy/ay_common/master/patch/rosmake-gcc_output_parse.py.patch
+  wget https://raw.githubusercontent.com/akihikoy/ay_common/master/patch/geometric_shapes-package.xml.patch
+  sudo patch -u /opt/ros/melodic/lib/python2.7/dist-packages/rosmake/gcc_output_parse.py < rosmake-gcc_output_parse.py.patch
+  sudo patch -u /opt/ros/melodic/share/geometric_shapes/package.xml < geometric_shapes-package.xml.patch
+fi
+
 echo '[user] Install AY-Tools & FingerVision?'
 if ask_user; then
   eval "$ros_bash_config"
