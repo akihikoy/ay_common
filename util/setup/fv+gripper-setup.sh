@@ -206,6 +206,10 @@ if ask_admin; then
   fi
 fi
 
+echo '[user] Make a FV+Gripper launcher icon on Desktop?'
+if ask_user; then
+  cp -a ~/ros_ws/ay_tools/ay_common/util/launcher/FV+Gripper.desktop ~/Desktop/
+fi
 
 # Configuration:
 echo '
