@@ -244,6 +244,8 @@ fi
 # '
 # v4l2-ctl --list-devices
 
-# Make symbolic links in /media/ pointing to the cameras:
-rosrun fingervision ln_cams.sh
+echo '[admin] Make symbolic links in /media/video_fvx to the FV cameras?'
+if ask; then
+  rosrun fingervision ln_cams.sh
+fi
 
