@@ -231,16 +231,19 @@ if ask; then
 fi
 
 
-echo '
-===================================
+# echo '
+# ===================================
+#
+# Instruction: Make symbolic links in /media/ pointing to the cameras.
+# e.g.
+# $ sudo ln -is /dev/v4l/by-path/pci-0000\:00\:14.0-usb-0\:7.1\:1.0-video-index0 /media/video_fv1
+# $ sudo ln -is /dev/v4l/by-path/pci-0000\:00\:14.0-usb-0\:1.1\:1.0-video-index0 /media/video_fv2
+#
+# The camera ID can be listed by:
+# $ v4l2-ctl --list-devices
+# '
+# v4l2-ctl --list-devices
 
-Instruction: Make symbolic links in /media/ pointing to the cameras.
-e.g.
-$ sudo ln -is /dev/v4l/by-path/pci-0000\:00\:14.0-usb-0\:7.1\:1.0-video-index0 /media/video_fv1
-$ sudo ln -is /dev/v4l/by-path/pci-0000\:00\:14.0-usb-0\:1.1\:1.0-video-index0 /media/video_fv2
-
-The camera ID can be listed by:
-$ v4l2-ctl --list-devices
-'
-v4l2-ctl --list-devices
+# Make symbolic links in /media/ pointing to the cameras:
+rosrun fingervision ln_cams.sh
 
