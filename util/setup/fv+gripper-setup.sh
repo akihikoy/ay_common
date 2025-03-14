@@ -129,7 +129,7 @@ fi
 echo '[user] Install Dynamixel SDK?'
 if ask_user; then
   mkdir -p ~/prg && cd ~/prg/
-  git clone https://github.com/ROBOTIS-GIT/DynamixelSDK.git
+  git clone -b master https://github.com/ROBOTIS-GIT/DynamixelSDK.git
   cd DynamixelSDK/python/
   python setup.py install --user
 fi
