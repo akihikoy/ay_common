@@ -181,17 +181,23 @@ if ask_user; then
   cd ~
   ln -is ros_ws/ay_tools/ay_common/util/launcher/fv+gripper.sh .
   ln -is ros_ws/ay_tools/ay_common/util/misc/fv+update.sh .
-  cp -ia ros_ws/ay_tools/ay_common/util/launcher/fv+config.sh .
+  cp -i ros_ws/ay_tools/ay_common/util/launcher/fv+config.sh .
 
   mkdir -p ~/data/data_gen/ ~/data/config/
-  cp -ia `rospack find ay_fv_extra`/config/fvp_5_l.yaml ~/data/config/fvp300x_l.yaml
-  cp -ia `rospack find ay_fv_extra`/config/fvp_5_r.yaml ~/data/config/fvp300x_r.yaml
-  cp -ia `rospack find ay_fv_extra`/config/fvp_ss2_l.yaml ~/data/config/
-  cp -ia `rospack find ay_fv_extra`/config/fvp_ss2_r.yaml ~/data/config/
-  cp -ia `rospack find ay_fv_extra`/config/fv_config_alpha.yaml ~/data/config/
-  cp -ia `rospack find ay_fv_extra`/config/fv_config_ss2.yaml ~/data/config/
+  cp -i `rospack find ay_fv_extra`/config/fvp300x_l.yaml ~/data/config/
+  cp -i `rospack find ay_fv_extra`/config/fvp300x_r.yaml ~/data/config/
+  cp -i `rospack find ay_fv_extra`/config/fvp_ss2_l.yaml ~/data/config/
+  cp -i `rospack find ay_fv_extra`/config/fvp_ss2_r.yaml ~/data/config/
+  cp -i `rospack find ay_fv_extra`/config/fvp_l1_l.yaml ~/data/config/
+  cp -i `rospack find ay_fv_extra`/config/fvp_l1_r.yaml ~/data/config/
+  cp -i `rospack find ay_fv_extra`/config/fv_config_alpha.yaml ~/data/config/
+  cp -i `rospack find ay_fv_extra`/config/fv_config_ss2.yaml ~/data/config/
+  cp -i `rospack find ay_fv_extra`/config/fv_config_cyl1.yaml ~/data/config/
+  cp -i `rospack find ay_fv_extra`/config/fv_config_m6.yaml ~/data/config/
+  cp -i `rospack find ay_fv_extra`/config/fv_config_l1.yaml ~/data/config/
+  cp -i `rospack find ay_fv_extra`/config/fv_config_d2_25.yaml ~/data/config/
   mkdir -p ~/.rviz/
-  cp -ia `rospack find fv_gripper_ctrl`/config/default.rviz ~/.rviz/
+  cp -i `rospack find fv_gripper_ctrl`/config/default.rviz ~/.rviz/
 
   # BG image
   wget http://akihikoy.net/p/FVIncLogo/logo_blue.png -O ~/Downloads/logo_blue.png
