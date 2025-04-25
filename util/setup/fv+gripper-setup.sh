@@ -186,11 +186,14 @@ if ask_user; then
   mkdir -p ~/data/data_gen/ ~/data/config/
   cp -i `rospack find ay_fv_extra`/config/fvp300x_l.yaml ~/data/config/
   cp -i `rospack find ay_fv_extra`/config/fvp300x_r.yaml ~/data/config/
+  cp -i `rospack find ay_fv_extra`/config/fvp300x_h_l.yaml ~/data/config/
+  cp -i `rospack find ay_fv_extra`/config/fvp300x_h_r.yaml ~/data/config/
   cp -i `rospack find ay_fv_extra`/config/fvp_ss2_l.yaml ~/data/config/
   cp -i `rospack find ay_fv_extra`/config/fvp_ss2_r.yaml ~/data/config/
   cp -i `rospack find ay_fv_extra`/config/fvp_l1_l.yaml ~/data/config/
   cp -i `rospack find ay_fv_extra`/config/fvp_l1_r.yaml ~/data/config/
   cp -i `rospack find ay_fv_extra`/config/fv_config_alpha.yaml ~/data/config/
+  cp -i `rospack find ay_fv_extra`/config/fv_config_alpha_h.yaml ~/data/config/
   cp -i `rospack find ay_fv_extra`/config/fv_config_ss2.yaml ~/data/config/
   cp -i `rospack find ay_fv_extra`/config/fv_config_cyl1.yaml ~/data/config/
   cp -i `rospack find ay_fv_extra`/config/fv_config_m6.yaml ~/data/config/
