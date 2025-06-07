@@ -30,5 +30,6 @@ export ROS_PACKAGE_PATH=${ROS_PACKAGE_PATH}:$HOME/ros_ws:${HOME}/prg/ay_test/ros
 echo "ROS_MASTER_URI=$ROS_MASTER_URI"
 echo "ROS_IP=$ROS_IP"
 echo "ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH"
+export DISABLE_ROS1_EOL_WARNINGS=1
 
 rosrun fv_gripper_ctrl ctrl_panel.py -gripper_type=${GRIPPER_TYPE} -dxl_dev=${DXL_DEV} ${FVG_OPTS} $@
